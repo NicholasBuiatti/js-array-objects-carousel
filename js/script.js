@@ -30,7 +30,7 @@ const images = [
     }
 ];
 
-let div = []
+const div = []
 
 //////////////////    CREAZIONE 5 CONTENITORI CARTA GRANDE
 let filmAttivo;
@@ -72,7 +72,7 @@ slideBox.classList.add('col-2');
 slideBox.classList.add('p-0');
 
 
-let divMiniatura = [];
+const divMiniatura = [];
 
 for (let i = 0; i < images.length; i++) {
     const film = images[i];
@@ -88,6 +88,20 @@ for (let i = 0; i < images.length; i++) {
     divMiniatura.push(minImg)
 }
 
+divMiniatura.forEach((element) => {
+    element.addEventListener('click', function() {
+
+        
+
+
+    })
+})
+
+
+
+
+
+
 ////////////////////////////////// PULSANTE BUTTON NEXT
 
 //do al primo elemento dell'array il display flex per renderlo visibile
@@ -97,13 +111,15 @@ let i = 0;
 
 // controllo sull'array delle miniature mettendo la classe che voglio io sulla prima di default
 let miniaturaAttiva = divMiniatura[0];
-addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
 let n = 0;
 
 
 
 const btnNext = document.querySelector('#next')
-btnNext.addEventListener('click', function () {
+
+/////////////////////////////// CAMBIO DELL'IMMAGINE OGNI 3 SECONDI
+setInterval(function () { 
     if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
         imgAttiva.classList.add('d-none')
         i++
@@ -113,7 +129,7 @@ btnNext.addEventListener('click', function () {
         removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
         n++
         miniaturaAttiva = divMiniatura[n];
-        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
 
 
     } else {
@@ -125,9 +141,39 @@ btnNext.addEventListener('click', function () {
         removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
         n = 0;
         miniaturaAttiva = divMiniatura[i];
-        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+    }
+}, 3000)
+
+
+btnNext.addEventListener('click', function () {
+    if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
+        imgAttiva.classList.add('d-none')
+        i++
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none')
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n++
+        miniaturaAttiva = divMiniatura[n];
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+
+
+    } else {
+        imgAttiva.classList.add('d-none')
+        i = 0
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none');
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n = 0;
+        miniaturaAttiva = divMiniatura[i];
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
     }
 })
+
+
+
 
 ///////////////////////////// BOTTONE BACK
 const btnBack = document.querySelector('#back')
@@ -142,7 +188,7 @@ btnBack.addEventListener('click', function () {
         removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
         n--
         miniaturaAttiva = divMiniatura[n];
-        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
 
     } else {
         imgAttiva.classList.add('d-none')
@@ -154,20 +200,6 @@ btnBack.addEventListener('click', function () {
         removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
         n = divMiniatura.length - 1;
         miniaturaAttiva = divMiniatura[n];
-        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
     }
 })
-
-
-/* <div class="col-2 p-0">
-    <div style="height: 8rem; width: 100%; background-image: url('./img/01.webp'); background-size: cover; background-position: center; text-align: center;">
-        <button>></button>
-    </div>
-    <div style="height: 8rem; width: 100%; background-image: url('./img/02.webp'); background-size: cover; background-position: center; text-align: center;"></div>
-    <div style="height: 8rem; width: 100%; background-image: url('./img/03.webp'); background-size: cover; background-position: center; text-align: center;"></div>
-    <div style="height: 8rem; width: 100%; background-image: url('./img/04.webp'); background-size: cover; background-position: center; text-align: center;"></div>
-    <div style="height: 8rem; width: 100%; background-image: url('./img/05.webp'); background-size: cover; background-position: center; text-align: center;">
-        <!-- pensare a come metterlo sotto idee = flex, position -->
-        <button style="margin-top: 6rem;">></button>
-    </div>
-</div> */
