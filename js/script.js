@@ -30,9 +30,10 @@ const images = [
     }
 ];
 
+let div = []
 
 //////////////////    CREAZIONE 5 CONTENITORI CARTA GRANDE
-
+let filmAttivo;
 for (let i = 0; i < images.length; i++) {
     const film = images[i];
     console.log(film);
@@ -40,6 +41,8 @@ for (let i = 0; i < images.length; i++) {
     const bigImg = document.createElement('div')
     bigImg.classList.add('col-10');
     bigImg.classList.add('row');
+    bigImg.classList.add('d-none')
+    bigImg.classList.add('d-flex')
     //creo il div per la descrizione immagine
     const desImg = document.createElement('div');
     //assegno lo style al div per la descrizione
@@ -58,8 +61,10 @@ for (let i = 0; i < images.length; i++) {
     //inserisco il div descrizione nel div immagine creato prima
     bigImg.append(desImg)
 
-}
+    //pusho in un array tutti i div che creo
+    div.push(bigImg)
 
+}
 
 ////////////////// CREAZIONE CONTENITORE CARTA PICCOLA
 const slideBox = document.createElement('div')
@@ -73,11 +78,32 @@ for (let i = 0; i < images.length; i++) {
     for (const key in film) {
         minImg.style = `height: 8rem; width: 100%; background-image: url('./${film.image}'); background-size: cover; background-position: center; text-align: center;`
     }
-    
+
     document.querySelector('#carosello').append(slideBox)
     slideBox.append(minImg)
 }
 
+////////////////////////////////// PULSANTE BUTTON NEXT
+
+//do al primo elemento dell'array il display flex per renderlo visibile
+let imgAttiva = div[0]
+imgAttiva.classList.remove('d-none');
+
+let i = 0;
+const btnNext = document.querySelector('#next')
+btnNext.addEventListener('click', function () {
+    if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
+        imgAttiva.classList.add('d-none')
+        i++
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none')
+    } else {
+        imgAttiva.classList.add('d-none')
+        i = 0
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none');
+    }
+})
 
 
 
