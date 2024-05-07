@@ -39,10 +39,8 @@ for (let i = 0; i < images.length; i++) {
     console.log(film);
     //creo il div per l'immagine grande
     const bigImg = document.createElement('div')
-    bigImg.classList.add('col-10');
-    bigImg.classList.add('row');
-    bigImg.classList.add('d-none')
-    bigImg.classList.add('d-flex')
+
+    addClass(bigImg, 'col-10', 'row', 'd-none', 'd-flex')
     //creo il div per la descrizione immagine
     const desImg = document.createElement('div');
     //assegno lo style al div per la descrizione
@@ -87,11 +85,11 @@ for (let i = 0; i < images.length; i++) {
 
     divMiniatura.push(minImg)
 }
-
+// evidenziatore delle immagini miniaturizzate
 divMiniatura.forEach((element) => {
-    element.addEventListener('click', function() {
+    element.addEventListener('click', function () {
 
-        
+
 
 
     })
@@ -118,32 +116,7 @@ let n = 0;
 
 const btnNext = document.querySelector('#next')
 
-/////////////////////////////// CAMBIO DELL'IMMAGINE OGNI 3 SECONDI
-setInterval(function () { 
-    if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
-        imgAttiva.classList.add('d-none')
-        i++
-        imgAttiva = div[i];
-        imgAttiva.classList.remove('d-none')
 
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n++
-        miniaturaAttiva = divMiniatura[n];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-
-
-    } else {
-        imgAttiva.classList.add('d-none')
-        i = 0
-        imgAttiva = div[i];
-        imgAttiva.classList.remove('d-none');
-
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n = 0;
-        miniaturaAttiva = divMiniatura[i];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-    }
-}, 3000)
 
 
 btnNext.addEventListener('click', function () {
@@ -202,4 +175,77 @@ btnBack.addEventListener('click', function () {
         miniaturaAttiva = divMiniatura[n];
         addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
     }
+})
+
+
+/////////////////////////////// CAMBIO DELL'IMMAGINE OGNI 3 SECONDI CON BOTTONE PLAY
+const btnPlay = document.querySelector('#play')
+let timerCarosello;
+btnPlay.addEventListener('click', function () {
+    timerCarosello = setInterval(function () {
+        if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
+            imgAttiva.classList.add('d-none')
+            i++
+            imgAttiva = div[i];
+            imgAttiva.classList.remove('d-none')
+
+            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+            n++
+            miniaturaAttiva = divMiniatura[n];
+            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+
+
+        } else {
+            imgAttiva.classList.add('d-none')
+            i = 0
+            imgAttiva = div[i];
+            imgAttiva.classList.remove('d-none');
+
+            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+            n = 0;
+            miniaturaAttiva = divMiniatura[i];
+            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        }
+    }, 3000)
+})
+
+
+
+const btnReverse = document.querySelector('#reverse');
+let reverseCarosello;
+btnReverse.addEventListener('click', function () {
+    reverseCarosello = setInterval(function () {
+        if (!imgAttiva.classList.contains('d-none') && i > 0) {
+            imgAttiva.classList.add('d-none')
+            i--
+            imgAttiva = div[i];
+            imgAttiva.classList.remove('d-none')
+
+
+            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+            n--
+            miniaturaAttiva = divMiniatura[n];
+            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+
+        } else {
+            imgAttiva.classList.add('d-none')
+            i = div.length - 1
+            imgAttiva = div[i];
+            imgAttiva.classList.remove('d-none');
+
+
+            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+            n = divMiniatura.length - 1;
+            miniaturaAttiva = divMiniatura[n];
+            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        }
+    }, 3000)
+})
+
+
+const btnStop = document.querySelector('#stop');
+
+btnStop.addEventListener('click', function () {
+    clearInterval(timerCarosello)
+    clearInterval(reverseCarosello)
 })
