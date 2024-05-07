@@ -105,8 +105,20 @@ btnNext.addEventListener('click', function () {
     }
 })
 
-
-
+const btnBack = document.querySelector('#back')
+btnBack.addEventListener('click', function () {
+    if (!imgAttiva.classList.contains('d-none') && i > 0) {
+        imgAttiva.classList.add('d-none')
+        i--
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none')
+    } else {
+        imgAttiva.classList.add('d-none')
+        i = div.length - 1
+        imgAttiva = div[i];
+        imgAttiva.classList.remove('d-none');
+    }
+})
 
 
 /* <div class="col-2 p-0">
