@@ -71,6 +71,9 @@ const slideBox = document.createElement('div')
 slideBox.classList.add('col-2');
 slideBox.classList.add('p-0');
 
+
+let divMiniatura = [];
+
 for (let i = 0; i < images.length; i++) {
     const film = images[i];
     const minImg = document.createElement('div');
@@ -81,6 +84,8 @@ for (let i = 0; i < images.length; i++) {
 
     document.querySelector('#carosello').append(slideBox)
     slideBox.append(minImg)
+
+    divMiniatura.push(minImg)
 }
 
 ////////////////////////////////// PULSANTE BUTTON NEXT
@@ -88,8 +93,15 @@ for (let i = 0; i < images.length; i++) {
 //do al primo elemento dell'array il display flex per renderlo visibile
 let imgAttiva = div[0]
 imgAttiva.classList.remove('d-none');
-
 let i = 0;
+
+// controllo sull'array delle miniature mettendo la classe che voglio io sulla prima di default
+let miniaturaAttiva = divMiniatura[0];
+addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+let n = 0;
+
+
+
 const btnNext = document.querySelector('#next')
 btnNext.addEventListener('click', function () {
     if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
@@ -97,14 +109,27 @@ btnNext.addEventListener('click', function () {
         i++
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none')
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n++
+        miniaturaAttiva = divMiniatura[n];
+        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+
+
     } else {
         imgAttiva.classList.add('d-none')
         i = 0
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none');
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n = 0;
+        miniaturaAttiva = divMiniatura[i];
+        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
     }
 })
 
+///////////////////////////// BOTTONE BACK
 const btnBack = document.querySelector('#back')
 btnBack.addEventListener('click', function () {
     if (!imgAttiva.classList.contains('d-none') && i > 0) {
@@ -112,11 +137,24 @@ btnBack.addEventListener('click', function () {
         i--
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none')
+
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n--
+        miniaturaAttiva = divMiniatura[n];
+        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+
     } else {
         imgAttiva.classList.add('d-none')
         i = div.length - 1
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none');
+
+
+        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
+        n = divMiniatura.length - 1;
+        miniaturaAttiva = divMiniatura[n];
+        addClass (miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
     }
 })
 
