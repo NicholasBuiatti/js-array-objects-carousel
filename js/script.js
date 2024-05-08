@@ -36,19 +36,18 @@ const div = []
 let filmAttivo;
 for (let i = 0; i < images.length; i++) {
     const film = images[i];
-    console.log(film);
+    
     //creo il div per l'immagine grande
     const bigImg = document.createElement('div')
+    bigImg.classList.add('col-10', 'row', 'd-none', 'd-flex')
 
-    addClass(bigImg, 'col-10', 'row', 'd-none', 'd-flex')
     //creo il div per la descrizione immagine
     const desImg = document.createElement('div');
     //assegno lo style al div per la descrizione
     desImg.style = `align-self: end; text-align: end; color: white;`
 
-
     for (const key in film) {
-        console.log(key, film[key])
+        
         bigImg.style = `height: 40rem; background-image: url('./${film.image}'); background-size: cover; background-position: center;`;
         desImg.innerHTML = `<h1>${film.title}</h1>
                         <p>${film.text}</p>`
@@ -66,9 +65,7 @@ for (let i = 0; i < images.length; i++) {
 
 ////////////////// CREAZIONE CONTENITORE CARTA PICCOLA
 const slideBox = document.createElement('div')
-slideBox.classList.add('col-2');
-slideBox.classList.add('p-0');
-
+slideBox.classList.add('col-2', 'p-0');
 
 const divMiniatura = [];
 
@@ -86,12 +83,6 @@ for (let i = 0; i < images.length; i++) {
     divMiniatura.push(minImg)
 }
 
-
-
-
-
-
-
 ////////////////////////////////// PULSANTE BUTTON NEXT
 
 //do al primo elemento dell'array il display flex per renderlo visibile
@@ -99,47 +90,38 @@ let i = 0;
 let imgAttiva = div[i]
 imgAttiva.classList.remove('d-none');
 
-
 // controllo sull'array delle miniature mettendo la classe che voglio io sulla prima di default
 let miniaturaAttiva = divMiniatura[0];
-addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-let n = 0;
-
-
+miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
 
 const btnNext = document.querySelector('#next')
-
-
-
-
 btnNext.addEventListener('click', function () {
-    if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
-        imgAttiva.classList.add('d-none')
-        i++
-        imgAttiva = div[i];
-        imgAttiva.classList.remove('d-none')
-
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n++
-        miniaturaAttiva = divMiniatura[n];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-
-
-    } else {
-        imgAttiva.classList.add('d-none')
-        i = 0
-        imgAttiva = div[i];
-        imgAttiva.classList.remove('d-none');
-
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n = 0;
-        miniaturaAttiva = divMiniatura[i];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-    }
+   
+    changeImg()
+//    console.log(imgAttiva, miniaturaAttiva, div, divMiniatura, i);
+  
+    // if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
+    //       imgAttiva.classList.add('d-none')
+    //       i++
+    //       imgAttiva = div[i];
+    //       imgAttiva.classList.remove('d-none')
+          
+    //       miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+    //       miniaturaAttiva = divMiniatura[i];
+    //       miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
+    // } else {
+    //       imgAttiva.classList.add('d-none')
+    //       i = 0
+    //       imgAttiva = div[i];
+    //       imgAttiva.classList.remove('d-none');
+          
+    //       miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+    //       miniaturaAttiva = divMiniatura[i];
+    //       miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
+    // }
+   
+     console.log(imgAttiva, i);
 })
-
-
-
 
 ///////////////////////////// BOTTONE BACK
 const btnBack = document.querySelector('#back')
@@ -150,23 +132,19 @@ btnBack.addEventListener('click', function () {
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none')
 
-
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n--
-        miniaturaAttiva = divMiniatura[n];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-
+        miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+        miniaturaAttiva = divMiniatura[i];
+        miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
+        
     } else {
         imgAttiva.classList.add('d-none')
         i = div.length - 1
         imgAttiva = div[i];
         imgAttiva.classList.remove('d-none');
 
-
-        removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-        n = divMiniatura.length - 1;
-        miniaturaAttiva = divMiniatura[n];
-        addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+        miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+        miniaturaAttiva = divMiniatura[i];
+        miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
     }
 })
 
@@ -174,6 +152,7 @@ btnBack.addEventListener('click', function () {
 /////////////////////////////// CAMBIO DELL'IMMAGINE OGNI 3 SECONDI CON BOTTONE PLAY
 const btnPlay = document.querySelector('#play')
 let timerCarosello;
+
 btnPlay.addEventListener('click', function () {
     timerCarosello = setInterval(function () {
         if (!imgAttiva.classList.contains('d-none') && i < div.length - 1) {
@@ -182,22 +161,18 @@ btnPlay.addEventListener('click', function () {
             imgAttiva = div[i];
             imgAttiva.classList.remove('d-none')
 
-            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-            n++
-            miniaturaAttiva = divMiniatura[n];
-            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-
-
+            miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+            miniaturaAttiva = divMiniatura[i];
+            miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
         } else {
             imgAttiva.classList.add('d-none')
             i = 0
             imgAttiva = div[i];
             imgAttiva.classList.remove('d-none');
 
-            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-            n = 0;
+            miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
             miniaturaAttiva = divMiniatura[i];
-            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
+            miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
         }
     }, 3000)
 })
@@ -206,6 +181,7 @@ btnPlay.addEventListener('click', function () {
 
 const btnReverse = document.querySelector('#reverse');
 let reverseCarosello;
+
 btnReverse.addEventListener('click', function () {
     reverseCarosello = setInterval(function () {
         if (!imgAttiva.classList.contains('d-none') && i > 0) {
@@ -214,27 +190,20 @@ btnReverse.addEventListener('click', function () {
             imgAttiva = div[i];
             imgAttiva.classList.remove('d-none')
 
-
-            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-            n--
-            miniaturaAttiva = divMiniatura[n];
-            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-
+            miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+            miniaturaAttiva = divMiniatura[i];
+            miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')
         } else {
             imgAttiva.classList.add('d-none')
             i = div.length - 1
             imgAttiva = div[i];
             imgAttiva.classList.remove('d-none');
 
-
-            removeClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning')
-            n = divMiniatura.length - 1;
-            miniaturaAttiva = divMiniatura[n];
-            addClass(miniaturaAttiva, 'border', 'rounded', 'border-5', 'border-warning');
-        }
+            miniaturaAttiva.classList.remove('border', 'rounded', 'border-5', 'border-warning')
+            miniaturaAttiva = divMiniatura[i];
+            miniaturaAttiva.classList.add('border', 'rounded', 'border-5', 'border-warning')        }
     }, 3000)
 })
-
 
 const btnStop = document.querySelector('#stop');
 
@@ -243,10 +212,8 @@ btnStop.addEventListener('click', function () {
     clearInterval(reverseCarosello)
 })
 
-
 // evidenziatore delle immagini miniaturizzate
 divMiniatura.forEach((element, index) => {
-
 
     element.addEventListener('click', function () {
         clearInterval(timerCarosello)
@@ -259,11 +226,8 @@ divMiniatura.forEach((element, index) => {
         imgAttiva = div[index]
 
         divMiniatura.forEach((element) => {
-            removeClass(element, 'border', 'rounded', 'border-5', 'border-warning')
+            element.classList.remove('border', 'rounded', 'border-5', 'border-warning')
         })
-        addClass(this, 'border', 'rounded', 'border-5', 'border-warning');
-
+        this.classList.add('border', 'rounded', 'border-5', 'border-warning')
     })
 })
-/************************** RIVEDERE IL CLICK SULLE IMMAGINI 
-***************************************************************/
