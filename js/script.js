@@ -85,15 +85,7 @@ for (let i = 0; i < images.length; i++) {
 
     divMiniatura.push(minImg)
 }
-// evidenziatore delle immagini miniaturizzate
-divMiniatura.forEach((element) => {
-    element.addEventListener('click', function () {
 
-
-
-
-    })
-})
 
 
 
@@ -103,9 +95,10 @@ divMiniatura.forEach((element) => {
 ////////////////////////////////// PULSANTE BUTTON NEXT
 
 //do al primo elemento dell'array il display flex per renderlo visibile
-let imgAttiva = div[0]
-imgAttiva.classList.remove('d-none');
 let i = 0;
+let imgAttiva = div[i]
+imgAttiva.classList.remove('d-none');
+
 
 // controllo sull'array delle miniature mettendo la classe che voglio io sulla prima di default
 let miniaturaAttiva = divMiniatura[0];
@@ -249,3 +242,28 @@ btnStop.addEventListener('click', function () {
     clearInterval(timerCarosello)
     clearInterval(reverseCarosello)
 })
+
+
+// evidenziatore delle immagini miniaturizzate
+divMiniatura.forEach((element, index) => {
+
+
+    element.addEventListener('click', function () {
+        clearInterval(timerCarosello)
+        clearInterval(reverseCarosello)
+        
+        div.forEach((element) => {
+            element.classList.add('d-none')
+        })
+        div[index].classList.remove('d-none')
+        imgAttiva = div[index]
+
+        divMiniatura.forEach((element) => {
+            removeClass(element, 'border', 'rounded', 'border-5', 'border-warning')
+        })
+        addClass(this, 'border', 'rounded', 'border-5', 'border-warning');
+
+    })
+})
+/************************** RIVEDERE IL CLICK SULLE IMMAGINI 
+***************************************************************/
